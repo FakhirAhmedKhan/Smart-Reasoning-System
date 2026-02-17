@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react'
-import { Conversation, User } from '../types/Interface';
+import { Conversation, User } from '../Types/Interface';
 
 export const useAppHook = () => {
     const [conversations, setConversations] = useState<Conversation[]>([]);

@@ -1,5 +1,5 @@
 "use client";
-import { HistoryItemProps } from "../types/Interface";
+import { HistoryItemProps } from "../Types/Interface";
 
 export default function HistoryItem(props: HistoryItemProps) {
   return (

@@ -1,4 +1,4 @@
-import { FinalAnswerProps } from "../types/Interface";
+import { FinalAnswerProps } from "../Types/Interface";
 
 export default function FinalAnswer({ answer }: FinalAnswerProps) {
   return (

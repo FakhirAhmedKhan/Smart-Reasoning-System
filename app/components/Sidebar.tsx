@@ -1,4 +1,4 @@
-import { SidebarProps } from "../types/Interface";
+import { SidebarProps } from "../Types/Interface";
 import HistoryItem from "./HistoryItem";
 
 export default function Sidebar(props: SidebarProps) {

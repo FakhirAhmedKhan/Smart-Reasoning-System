@@ -1,4 +1,4 @@
-import { AIResponse  } from "@/app/types/Types";
+import { AIResponse } from "@/app/Types/Types";
 import { NextRequest, NextResponse } from "next/server";
 import { prompt } from "@/app/Constant/prompt.con";
 
