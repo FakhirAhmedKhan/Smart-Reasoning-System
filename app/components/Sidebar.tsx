@@ -3,12 +3,12 @@ import HistoryItem from "./HistoryItem";
 
 export default function Sidebar(props: SidebarProps) {
   return (
-    <div className="w-64 bg-gray-900 text-white flex flex-col h-screen border-r border-gray-700 relative">
-      <div className="p-4 border-b border-gray-700">
-        <div className="flex items-center gap-2 mb-4">
+    <div className="w-64 sm:w-72 md:w-80 bg-gray-900 text-white flex flex-col h-screen border-r border-gray-700 relative">
+      <div className="p-3 sm:p-4 border-b border-gray-700">
+        <div className="flex items-center gap-2 mb-3 sm:mb-4">
           <button
             onClick={props.onNewChat}
-            className="flex-1 bg-gray-800 hover:bg-gray-700 text-white py-2 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 font-medium shadow-sm hover:shadow-md text-sm"
+            className="flex-1 bg-gray-800 hover:bg-gray-700 text-white py-2 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 font-medium shadow-sm hover:shadow-md text-xs sm:text-sm"
           >
             <svg
               className="w-4 h-4"
@@ -27,8 +27,9 @@ export default function Sidebar(props: SidebarProps) {
           </button>
           <button
             onClick={props.onClose}
-            className="p-2 hover:bg-gray-800 rounded-lg text-gray-400 hover:text-white transition-colors"
+            className="p-2 hover:bg-gray-800 rounded-lg text-gray-400 hover:text-white transition-colors md:hidden"
             title="Close Sidebar"
+            aria-label="Close sidebar"
           >
             <svg
               className="w-5 h-5"
@@ -48,7 +49,7 @@ export default function Sidebar(props: SidebarProps) {
       </div>
       <div className="flex-1 overflow-y-auto p-2">
         {props.conversations.length === 0 ? (
-          <div className="text-gray-500 text-sm text-center mt-8 px-4">
+          <div className="text-gray-500 text-xs sm:text-sm text-center mt-8 px-3 sm:px-4">
             No conversations yet. Start by asking a question!
           </div>
         ) : (
@@ -66,15 +67,15 @@ export default function Sidebar(props: SidebarProps) {
         )}
       </div>
       {/* //footer Section */}
-      <div className="p-4 border-t border-gray-700 space-y-4">
+      <div className="p-3 sm:p-4 border-t border-gray-700 space-y-3 sm:space-y-4">
         {props.user ? (
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
+          <div className="space-y-2 sm:space-y-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold shrink-0">
                 {props.user.username.charAt(0).toUpperCase()}
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium truncate">
+                <p className="text-xs sm:text-sm font-medium truncate">
                   {props.user.username}
                 </p>
                 <p className="text-[10px] text-gray-400 truncate">

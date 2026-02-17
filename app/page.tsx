@@ -33,7 +33,7 @@ export default function Page() {
   } = useAppHook();
 
   return (
-    <div className="flex h-screen overflow-y-auto bg-white">
+    <div className="flex h-screen overflow-hidden bg-white">
       <LoginModal
         isOpen={showLoginModal}
         LoginHandleSubmit={LoginHandleSubmit}
@@ -43,24 +43,47 @@ export default function Page() {
         setEmail={setEmail}
         error={error}
       />
-      {isSidebarOpen ? (
-        <div className="z-50 fixed">
-          <Sidebar
-            user={user}
-            onLogout={handleLogout}
-            conversations={conversations}
-            activeId={activeId}
-            onSelect={handleSelectConversation}
-            onNewChat={handleNewChat}
-            onClose={() => setIsSidebarOpen(false)}
-            truncateText={truncateText}
-          />
-        </div>
-      ) : (
+
+      {/* Mobile Overlay */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300"
+          onClick={() => setIsSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Sidebar */}
+      <div
+        className={`fixed md:static inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        }`}
+      >
+        <Sidebar
+          user={user}
+          onLogout={handleLogout}
+          conversations={conversations}
+          activeId={activeId}
+          onSelect={(id) => {
+            handleSelectConversation(id);
+            // Close sidebar on mobile when item is selected
+            if (window.innerWidth < 768) {
+              setIsSidebarOpen(false);
+            }
+          }}
+          onNewChat={handleNewChat}
+          onClose={() => setIsSidebarOpen(false)}
+          truncateText={truncateText}
+        />
+      </div>
+
+      {/* Hamburger Menu Button (Mobile Only) */}
+      {!isSidebarOpen && (
         <button
           onClick={() => setIsSidebarOpen(true)}
-          className="fixed top-4 left-4 z-20 p-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors shadow-lg border border-gray-700"
-          title="Open Sidebar"
+          className="fixed top-4 left-4 z-30 p-2 md:hidden bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 shadow-lg border border-gray-700"
+          title="Open Menu"
+          aria-label="Open sidebar menu"
         >
           <svg
             className="w-6 h-6"
@@ -77,9 +100,9 @@ export default function Page() {
           </svg>
         </button>
       )}
-      <div
-        className={`flex-1 transition-all duration-300 ${isSidebarOpen ? "" : "w-full"}`}
-      >
+
+      {/* Main Content */}
+      <div className="flex-1 overflow-y-auto">
         <MainContent
           activeConversation={activeConversation}
           onSubmit={handleSubmit}

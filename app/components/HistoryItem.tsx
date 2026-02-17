@@ -5,7 +5,7 @@ export default function HistoryItem(props: HistoryItemProps) {
   return (
     <button
       onClick={props.onClick}
-      className={`w-full text-left p-3 rounded-lg transition-all duration-200 group ${
+      className={`w-full text-left p-2.5 sm:p-3 rounded-lg transition-all duration-200 group ${
         props.isActive
           ? "bg-gray-800 text-white shadow-md"
           : "text-gray-300 hover:bg-gray-800/50"
@@ -30,10 +30,10 @@ export default function HistoryItem(props: HistoryItemProps) {
           />
         </svg>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">
+          <p className="text-xs sm:text-sm font-medium truncate">
             {props.truncateText(props.conversation.problem, 40)}
           </p>
-          <p className="text-xs text-gray-500 mt-0.5">
+          <p className="text-[10px] sm:text-xs text-gray-500 mt-0.5">
             {new Date(props.conversation.createdAt).toLocaleDateString()}
           </p>
         </div>

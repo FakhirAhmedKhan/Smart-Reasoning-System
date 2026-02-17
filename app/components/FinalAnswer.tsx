@@ -2,13 +2,13 @@ import { FinalAnswerProps } from "../TS/Interface";
 
 export default function FinalAnswer({ answer }: FinalAnswerProps) {
   return (
-    <div className="relative overflow-hidden p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl shadow-lg">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-400/20 to-emerald-400/20 rounded-full blur-3xl -mr-16 -mt-16"></div>
+    <div className="relative overflow-hidden p-4 sm:p-5 md:p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl sm:rounded-2xl shadow-lg">
+      <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-green-400/20 to-emerald-400/20 rounded-full blur-3xl -mr-12 sm:-mr-16 -mt-12 sm:-mt-16"></div>
       <div className="relative">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-md">
+        <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-md">
             <svg
-              className="w-6 h-6 text-white"
+              className="w-5 h-5 sm:w-6 sm:h-6 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -21,9 +21,11 @@ export default function FinalAnswer({ answer }: FinalAnswerProps) {
               />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-green-900">Final Answer</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-green-900">
+            Final Answer
+          </h2>
         </div>
-        <p className="text-green-950 text-lg leading-relaxed font-medium">
+        <p className="text-green-950 text-base sm:text-lg leading-relaxed font-medium break-words">
           {answer}
         </p>
       </div>
