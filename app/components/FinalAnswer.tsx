@@ -1,4 +1,4 @@
-import { FinalAnswerProps } from "../types/interface";
+import { FinalAnswerProps } from "../types/Interface";
 
 export default function FinalAnswer({ answer }: FinalAnswerProps) {
   return (
@@ -21,9 +21,7 @@ export default function FinalAnswer({ answer }: FinalAnswerProps) {
               />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-green-900">
-            Final Answer
-          </h2>
+          <h2 className="text-xl font-bold text-green-900">Final Answer</h2>
         </div>
         <p className="text-green-950 text-lg leading-relaxed font-medium">
           {answer}

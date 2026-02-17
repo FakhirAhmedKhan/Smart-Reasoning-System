@@ -1,15 +1,6 @@
+import { AIResponse  } from "@/app/types/Types";
 import { NextRequest, NextResponse } from "next/server";
-
-type Step = {
-  title: string;
-  reason: string;
-  result: string;
-};
-
-type AIResponse = {
-  steps: Step[];
-  finalAnswer: string;
-};
+import { prompt } from "@/app/Constant/prompt.con";
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,22 +28,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const prompt = `
-Break the problem into steps.
-Explain why each step makes sense.
-Return ONLY valid JSON in this format:
-
-{
- "steps":[
-   {"title":"","reason":"","result":""}
- ],
- "finalAnswer":""
-}
-
-Problem:
-${problem}
-`;
-
     const aiRes = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
       {
@@ -66,7 +41,7 @@ ${problem}
               role: "user",
               parts: [
                 {
-                  text: `You are a structured reasoning engine. Always return valid JSON only.\n\n${prompt}`,
+                  text: `${prompt(problem)}`,
                 },
               ],
             },
