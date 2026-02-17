@@ -1,5 +1,5 @@
 "use client";
-import { LoginModalProps } from "../Types/Interface";
+import { LoginModalProps } from "../TS/Interface";
 
 export default function LoginModal(props: LoginModalProps) {
   if (!props.isOpen) return null;

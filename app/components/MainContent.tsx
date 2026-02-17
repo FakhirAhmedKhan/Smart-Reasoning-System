@@ -1,6 +1,6 @@
 "use client";
 
-import { MainContentProps } from "../Types/Interface";
+import { MainContentProps } from "../TS/Interface";
 import InputBox from "./InputBox";
 import StepViewer from "./StepViewer";
 import FinalAnswer from "./FinalAnswer";

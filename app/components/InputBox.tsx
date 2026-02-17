@@ -1,4 +1,4 @@
-import { InputBoxProps } from "../Types/Interface";
+import { InputBoxProps } from "../TS/Interface";
 
 export default function InputBox(props: InputBoxProps) {
   return (

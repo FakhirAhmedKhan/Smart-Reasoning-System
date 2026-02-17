@@ -1,4 +1,4 @@
-import { StepViewerProps } from "../Types/Interface";
+import { StepViewerProps } from "../TS/Interface";
 
 export default function StepViewer({ steps }: StepViewerProps) {
   return (
