@@ -23,6 +23,7 @@ export interface SidebarProps {
   onSelect: (id: string) => void;
   onNewChat: () => void;
   onClose: () => void;
+  truncateText: (text: string, maxLength: number) => string;
 }
 
 export interface MainContentProps {
@@ -30,17 +31,24 @@ export interface MainContentProps {
   onSubmit: (problem: string) => void;
   loading: boolean;
   error: string;
+  handleSubmit: (e: React.FormEvent) => void;
+  input: string;
+  setInput: (input: string) => void;
 }
 
 export interface InputBoxProps {
   onSubmit: (problem: string) => void;
   loading: boolean;
+  handleSubmit: (e: React.FormEvent) => void;
+  input: string;
+  setInput: (input: string) => void;
 }
 
 export interface HistoryItemProps {
   conversation: Conversation;
   isActive: boolean;
   onClick: () => void;
+  truncateText: (text: string, maxLength: number) => string;
 }
 
 export interface FinalAnswerProps {

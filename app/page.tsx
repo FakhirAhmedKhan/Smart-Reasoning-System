@@ -1,88 +1,13 @@
 "use client";
-
-import { useState } from "react";
-import { Conversation, ReasonStep } from "./types/interface";
 import Sidebar from "./components/Sidebar";
 import MainContent from "./components/MainContent";
+import { useAppHook } from "./Hook/useAppHook";
 
 export default function Page() {
-  const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  const activeConversation = conversations.find((c) => c.id === activeId) || null;
-
-  const handleSubmit = async (problem: string) => {
-    setLoading(true);
-    setError("");
-
-    // Create new conversation
-    const newConversation: Conversation = {
-      id: Date.now().toString(),
-      problem,
-      steps: [],
-      finalAnswer: "",
-      createdAt: new Date().toISOString(),
-    };
-
-    // Add to conversations and set as active
-    setConversations((prev) => [newConversation, ...prev]);
-    setActiveId(newConversation.id);
-
-    try {
-      const res = await fetch("/api/reason", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ problem }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error || "Something went wrong");
-        // Remove the failed conversation
-        setConversations((prev) => prev.filter((c) => c.id !== newConversation.id));
-        setActiveId(null);
-        return;
-      }
-
-      // Update conversation with results
-      setConversations((prev) =>
-        prev.map((c) =>
-          c.id === newConversation.id
-            ? {
-              ...c,
-              steps: data.steps || [],
-              finalAnswer: data.finalAnswer || "",
-            }
-            : c
-        )
-      );
-    } catch (err) {
-      console.error(err);
-      setError("Failed to connect to the server");
-      // Remove the failed conversation
-      setConversations((prev) => prev.filter((c) => c.id !== newConversation.id));
-      setActiveId(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleNewChat = () => {
-    setActiveId(null);
-    setError("");
-  };
-
-  const handleSelectConversation = (id: string) => {
-    setActiveId(id);
-    setError("");
-  };
+  const { conversations, activeId, isSidebarOpen, activeConversation, handleSubmit, handleNewChat, handleSelectConversation, setIsSidebarOpen, loading, error, input, setInput, InputhandleSubmit, truncateText } = useAppHook();
 
   return (
-    <div className="flex h-screen overflow-hidden bg-white">
+    <div className="flex h-screen overflow-y-auto bg-white">
       {isSidebarOpen ? (
         <Sidebar
           conversations={conversations}
@@ -90,6 +15,7 @@ export default function Page() {
           onSelect={handleSelectConversation}
           onNewChat={handleNewChat}
           onClose={() => setIsSidebarOpen(false)}
+          truncateText={truncateText}
         />
       ) : (
         <button
@@ -118,6 +44,9 @@ export default function Page() {
           onSubmit={handleSubmit}
           loading={loading}
           error={error}
+          handleSubmit={InputhandleSubmit}
+          input={input}
+          setInput={setInput}
         />
       </div>
     </div>

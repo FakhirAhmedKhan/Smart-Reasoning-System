@@ -10,6 +10,9 @@ export default function MainContent({
     onSubmit,
     loading,
     error,
+    handleSubmit,
+    input,
+    setInput,
 }: MainContentProps) {
     return (
         <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100 overflow-y-auto">
@@ -24,10 +27,8 @@ export default function MainContent({
                     </p>
                 </div>
 
-                {/* Input Box */}
-                <InputBox onSubmit={onSubmit} loading={loading} />
+                <InputBox onSubmit={onSubmit} loading={loading} handleSubmit={handleSubmit} input={input} setInput={setInput} />
 
-                {/* Error Display */}
                 {error && (
                     <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-2xl shadow-sm animate-in fade-in duration-300">
                         <div className="flex items-start gap-3">
@@ -47,10 +48,8 @@ export default function MainContent({
                     </div>
                 )}
 
-                {/* Active Conversation Display */}
                 {activeConversation && (
                     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        {/* Problem Display */}
                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
                                 Problem
@@ -58,7 +57,6 @@ export default function MainContent({
                             <p className="text-gray-800 text-lg">{activeConversation.problem}</p>
                         </div>
 
-                        {/* Steps */}
                         {activeConversation.steps.length > 0 && (
                             <div>
                                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
@@ -68,7 +66,6 @@ export default function MainContent({
                             </div>
                         )}
 
-                        {/* Final Answer */}
                         {activeConversation.finalAnswer && (
                             <div>
                                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
@@ -80,7 +77,6 @@ export default function MainContent({
                     </div>
                 )}
 
-                {/* Empty State */}
                 {!activeConversation && !loading && (
                     <div className="text-center py-16 text-gray-400">
                         <svg

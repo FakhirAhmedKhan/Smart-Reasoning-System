@@ -5,12 +5,8 @@ export default function HistoryItem({
     conversation,
     isActive,
     onClick,
+    truncateText,
 }: HistoryItemProps) {
-    const truncateText = (text: string, maxLength: number = 40) => {
-        return text.length > maxLength
-            ? text.substring(0, maxLength) + "..."
-            : text;
-    };
 
     return (
         <button
@@ -37,7 +33,7 @@ export default function HistoryItem({
                 </svg>
                 <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate">
-                        {truncateText(conversation.problem)}
+                        {truncateText(conversation.problem, 40)}
                     </p>
                     <p className="text-xs text-gray-500 mt-0.5">
                         {new Date(conversation.createdAt).toLocaleDateString()}

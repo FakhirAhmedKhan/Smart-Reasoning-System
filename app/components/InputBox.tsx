@@ -1,16 +1,6 @@
-"use client";
-import { useState } from "react";
 import { InputBoxProps } from "../types/interface";
 
-export default function InputBox({ onSubmit, loading }: InputBoxProps) {
-  const [input, setInput] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim()) return;
-    onSubmit(input);
-    setInput(""); // Clear input after submission
-  };
+export default function InputBox({ input, setInput, loading, handleSubmit }: InputBoxProps) {
 
   return (
     <form
