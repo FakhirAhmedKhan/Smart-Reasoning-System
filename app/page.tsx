@@ -1,22 +1,61 @@
 "use client";
 import Sidebar from "./components/Sidebar";
 import MainContent from "./components/MainContent";
+import LoginModal from "./components/LoginModal";
 import { useAppHook } from "./Hook/useAppHook";
 
 export default function Page() {
-  const { conversations, activeId, isSidebarOpen, activeConversation, handleSubmit, handleNewChat, handleSelectConversation, setIsSidebarOpen, loading, error, input, setInput, InputhandleSubmit, truncateText } = useAppHook();
+  const {
+    conversations,
+    activeId,
+    isSidebarOpen,
+    activeConversation,
+    handleSubmit,
+    handleNewChat,
+    handleSelectConversation,
+    setIsSidebarOpen,
+    loading,
+    error,
+    input,
+    setInput,
+    InputhandleSubmit,
+    truncateText,
+    user,
+    showLoginModal,
+    handleLogin,
+    LoginHandleSubmit,
+    username,
+    setUsername,
+    email,
+    setEmail,
+    handleLogout,
+    isDisabled,
+  } = useAppHook();
 
   return (
     <div className="flex h-screen overflow-y-auto bg-white">
+      <LoginModal
+        isOpen={showLoginModal}
+        LoginHandleSubmit={LoginHandleSubmit}
+        username={username}
+        setUsername={setUsername}
+        email={email}
+        setEmail={setEmail}
+        error={error}
+      />
       {isSidebarOpen ? (
-        <Sidebar
-          conversations={conversations}
-          activeId={activeId}
-          onSelect={handleSelectConversation}
-          onNewChat={handleNewChat}
-          onClose={() => setIsSidebarOpen(false)}
-          truncateText={truncateText}
-        />
+        <div className="z-50 fixed">
+          <Sidebar
+            user={user}
+            onLogout={handleLogout}
+            conversations={conversations}
+            activeId={activeId}
+            onSelect={handleSelectConversation}
+            onNewChat={handleNewChat}
+            onClose={() => setIsSidebarOpen(false)}
+            truncateText={truncateText}
+          />
+        </div>
       ) : (
         <button
           onClick={() => setIsSidebarOpen(true)}
@@ -38,7 +77,9 @@ export default function Page() {
           </svg>
         </button>
       )}
-      <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? '' : 'w-full'}`}>
+      <div
+        className={`flex-1 transition-all duration-300 ${isSidebarOpen ? "" : "w-full"}`}
+      >
         <MainContent
           activeConversation={activeConversation}
           onSubmit={handleSubmit}
@@ -47,6 +88,7 @@ export default function Page() {
           handleSubmit={InputhandleSubmit}
           input={input}
           setInput={setInput}
+          isDisabled={isDisabled}
         />
       </div>
     </div>

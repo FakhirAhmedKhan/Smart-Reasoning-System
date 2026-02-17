@@ -1,6 +1,6 @@
 import { InputBoxProps } from "../types/interface";
 
-export default function InputBox({ input, setInput, loading, handleSubmit }: InputBoxProps) {
+export default function InputBox({ input, setInput, loading, handleSubmit, isDisabled }: InputBoxProps) {
 
   return (
     <form
@@ -12,12 +12,12 @@ export default function InputBox({ input, setInput, loading, handleSubmit }: Inp
         onChange={(e) => setInput(e.target.value)}
         placeholder="Enter your problem or question here..."
         className="w-full h-32 p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all duration-200 text-gray-800 placeholder-gray-400"
-        disabled={loading}
+        disabled={loading || isDisabled}
       />
 
       <button
         type="submit"
-        disabled={loading || !input.trim()}
+        disabled={loading || !input.trim() || isDisabled}
         className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0"
       >
         {loading ? (

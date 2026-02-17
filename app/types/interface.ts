@@ -11,6 +11,7 @@ export interface Conversation {
   steps: ReasonStep[];
   finalAnswer: string;
   createdAt: string;
+  LoginHandleSubmit: (e: React.FormEvent) => void;
 }
 
 export interface StepViewerProps {
@@ -24,6 +25,8 @@ export interface SidebarProps {
   onNewChat: () => void;
   onClose: () => void;
   truncateText: (text: string, maxLength: number) => string;
+  user: User | null;
+  onLogout: () => void;
 }
 
 export interface MainContentProps {
@@ -34,6 +37,7 @@ export interface MainContentProps {
   handleSubmit: (e: React.FormEvent) => void;
   input: string;
   setInput: (input: string) => void;
+  isDisabled?: boolean;
 }
 
 export interface InputBoxProps {
@@ -42,6 +46,7 @@ export interface InputBoxProps {
   handleSubmit: (e: React.FormEvent) => void;
   input: string;
   setInput: (input: string) => void;
+  isDisabled?: boolean;
 }
 
 export interface HistoryItemProps {
@@ -53,4 +58,19 @@ export interface HistoryItemProps {
 
 export interface FinalAnswerProps {
   answer: string;
+}
+
+export interface User {
+  username: string;
+  email: string;
+}
+
+export interface LoginModalProps {
+  isOpen: boolean;
+  LoginHandleSubmit: (e: React.FormEvent) => void;
+  username: string;
+  setUsername: (input: string) => void;
+  email: string;
+  setEmail: (input: string) => void;
+  error: string;
 }

@@ -1,6 +1,6 @@
 "use client";
-import { useState } from 'react'
-import { Conversation } from '../types/interface';
+import { useState, useEffect } from 'react'
+import { Conversation, User } from '../types/interface';
 
 export const useAppHook = () => {
     const [conversations, setConversations] = useState<Conversation[]>([]);
@@ -8,8 +8,34 @@ export const useAppHook = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const activeConversation = conversations.find((c) => c.id === activeId) || null;
     const [input, setInput] = useState("");
+    const [user, setUser] = useState<User | null>(null);
+    const [showLoginModal, setShowLoginModal] = useState(false);
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const isDisabled = !user && conversations.length > 0;
+    const activeConversation = conversations.find((c) => c.id === activeId) || null;
+
+    // Load user from localStorage on mount
+    useEffect(() => {
+        const savedUser = localStorage.getItem("user");
+        if (savedUser) {
+            setUser(JSON.parse(savedUser));
+        }
+    }, []);
+
+    const handleLogin = (userData: User) => {
+        setUser(userData);
+        localStorage.setItem("user", JSON.stringify(userData));
+        setShowLoginModal(false);
+    };
+
+    const handleLogout = () => {
+        setUser(null);
+        localStorage.removeItem("user");
+        setConversations([]);
+        setActiveId(null);
+    };
 
     const handleSubmit = async (problem: string) => {
         setLoading(true);
@@ -22,6 +48,7 @@ export const useAppHook = () => {
             steps: [],
             finalAnswer: "",
             createdAt: new Date().toISOString(),
+            LoginHandleSubmit,
         };
 
         // Add to conversations and set as active
@@ -57,6 +84,11 @@ export const useAppHook = () => {
                         : c
                 )
             );
+
+            // Trigger login modal after first successful chat if not logged in
+            if (!user && conversations.length === 0) {
+                setTimeout(() => setShowLoginModal(true), 1500); // Small delay for UX
+            }
         } catch (err) {
             console.error(err);
             setError("Failed to connect to the server");
@@ -77,9 +109,17 @@ export const useAppHook = () => {
         setActiveId(id);
         setError("");
     };
+
     const InputhandleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!input.trim()) return;
+
+        // Block if not logged in and not first chat
+        if (!user && conversations.length > 0) {
+            setShowLoginModal(true);
+            return;
+        }
+
         handleSubmit(input);
         setInput(""); // Clear input after submission
     };
@@ -88,6 +128,16 @@ export const useAppHook = () => {
         return text.length > maxLength
             ? text.substring(0, maxLength) + "..."
             : text;
+    };
+
+    const LoginHandleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!username.trim() || !email.trim()) {
+            setError("Both fields are required");
+            return;
+        }
+        setError("");
+        handleLogin({ username, email });
     };
 
     return {
@@ -104,6 +154,16 @@ export const useAppHook = () => {
         handleSelectConversation,
         InputhandleSubmit,
         input,
+        isDisabled,
         setInput,
+        user,
+        showLoginModal,
+        handleLogin,
+        handleLogout,
+        username,
+        setUsername,
+        email,
+        setEmail,
+        LoginHandleSubmit,
     }
 }

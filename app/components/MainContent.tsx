@@ -13,6 +13,7 @@ export default function MainContent({
     handleSubmit,
     input,
     setInput,
+    isDisabled,
 }: MainContentProps) {
     return (
         <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100 overflow-y-auto">
@@ -27,7 +28,7 @@ export default function MainContent({
                     </p>
                 </div>
 
-                <InputBox onSubmit={onSubmit} loading={loading} handleSubmit={handleSubmit} input={input} setInput={setInput} />
+                <InputBox onSubmit={onSubmit} loading={loading} handleSubmit={handleSubmit} input={input} setInput={setInput} isDisabled={isDisabled} />
 
                 {error && (
                     <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-2xl shadow-sm animate-in fade-in duration-300">
