@@ -1,8 +1,6 @@
-interface Props {
-  answer: string;
-}
+import { FinalAnswerProps } from "../types/interface";
 
-export default function FinalAnswer({ answer }: Props) {
+export default function FinalAnswer({ answer }: FinalAnswerProps) {
   return (
     <div className="relative overflow-hidden p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl shadow-lg">
       {/* Decorative gradient overlay */}

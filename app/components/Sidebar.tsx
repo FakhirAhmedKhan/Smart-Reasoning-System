@@ -1,15 +1,6 @@
 "use client";
-
-import { Conversation } from "../types/interface";
+import { SidebarProps } from "../types/interface";
 import HistoryItem from "./HistoryItem";
-
-interface SidebarProps {
-    conversations: Conversation[];
-    activeId: string | null;
-    onSelect: (id: string) => void;
-    onNewChat: () => void;
-    onClose: () => void;
-}
 
 export default function Sidebar({
     conversations,

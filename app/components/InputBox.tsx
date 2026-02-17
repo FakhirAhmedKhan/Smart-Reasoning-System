@@ -1,13 +1,8 @@
 "use client";
-
 import { useState } from "react";
+import { InputBoxProps } from "../types/interface";
 
-interface Props {
-  onSubmit: (problem: string) => void;
-  loading: boolean;
-}
-
-export default function InputBox({ onSubmit, loading }: Props) {
+export default function InputBox({ onSubmit, loading }: InputBoxProps) {
   const [input, setInput] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {

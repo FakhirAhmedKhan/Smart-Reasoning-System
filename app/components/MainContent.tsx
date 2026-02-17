@@ -1,16 +1,9 @@
 "use client";
 
-import { Conversation } from "../types/interface";
+import { MainContentProps } from "../types/interface";
 import InputBox from "./InputBox";
 import StepViewer from "./StepViewer";
 import FinalAnswer from "./FinalAnswer";
-
-interface MainContentProps {
-    activeConversation: Conversation | null;
-    onSubmit: (problem: string) => void;
-    loading: boolean;
-    error: string;
-}
 
 export default function MainContent({
     activeConversation,

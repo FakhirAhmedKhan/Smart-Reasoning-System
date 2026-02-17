@@ -13,6 +13,36 @@ export interface Conversation {
   createdAt: string;
 }
 
-export interface Props {
+export interface StepViewerProps {
   steps: ReasonStep[];
+}
+
+export interface SidebarProps {
+  conversations: Conversation[];
+  activeId: string | null;
+  onSelect: (id: string) => void;
+  onNewChat: () => void;
+  onClose: () => void;
+}
+
+export interface MainContentProps {
+  activeConversation: Conversation | null;
+  onSubmit: (problem: string) => void;
+  loading: boolean;
+  error: string;
+}
+
+export interface InputBoxProps {
+  onSubmit: (problem: string) => void;
+  loading: boolean;
+}
+
+export interface HistoryItemProps {
+  conversation: Conversation;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+export interface FinalAnswerProps {
+  answer: string;
 }

@@ -1,6 +1,6 @@
-import { Props } from "../types/interface";
+import { StepViewerProps } from "../types/interface";
 
-export default function StepViewer({ steps }: Props) {
+export default function StepViewer({ steps }: StepViewerProps) {
   return (
     <div className="space-y-4">
       {steps.map((step, index) => (

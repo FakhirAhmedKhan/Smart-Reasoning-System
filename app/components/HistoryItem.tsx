@@ -1,12 +1,5 @@
 "use client";
-
-import { Conversation } from "../types/interface";
-
-interface HistoryItemProps {
-    conversation: Conversation;
-    isActive: boolean;
-    onClick: () => void;
-}
+import { HistoryItemProps } from "../types/interface";
 
 export default function HistoryItem({
     conversation,
