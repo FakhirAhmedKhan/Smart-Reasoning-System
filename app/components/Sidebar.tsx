@@ -8,6 +8,7 @@ interface SidebarProps {
     activeId: string | null;
     onSelect: (id: string) => void;
     onNewChat: () => void;
+    onClose: () => void;
 }
 
 export default function Sidebar({
@@ -15,30 +16,52 @@ export default function Sidebar({
     activeId,
     onSelect,
     onNewChat,
+    onClose,
 }: SidebarProps) {
     return (
-        <div className="w-64 bg-gray-900 text-white flex flex-col h-screen border-r border-gray-700">
+        <div className="w-64 bg-gray-900 text-white flex flex-col h-screen border-r border-gray-700 relative">
             {/* Header */}
             <div className="p-4 border-b border-gray-700">
-                <button
-                    onClick={onNewChat}
-                    className="w-full bg-gray-800 hover:bg-gray-700 text-white py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 font-medium shadow-sm hover:shadow-md"
-                >
-                    <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                <div className="flex items-center gap-2 mb-4">
+                    <button
+                        onClick={onNewChat}
+                        className="flex-1 bg-gray-800 hover:bg-gray-700 text-white py-2 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 font-medium shadow-sm hover:shadow-md text-sm"
                     >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 4v16m8-8H4"
-                        />
-                    </svg>
-                    New Chat
-                </button>
+                        <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 4v16m8-8H4"
+                            />
+                        </svg>
+                        New Chat
+                    </button>
+                    <button
+                        onClick={onClose}
+                        className="p-2 hover:bg-gray-800 rounded-lg text-gray-400 hover:text-white transition-colors"
+                        title="Close Sidebar"
+                    >
+                        <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             {/* History List */}
